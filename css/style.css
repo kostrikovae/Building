@@ -44,10 +44,12 @@ body {
   font-family: "Oswald", sans-serif;
   font-weight: 400;
   max-width: 1920px;
+  margin: 0 auto;
 }
 .container {
   max-width: 1110px;
   margin: 0 auto;
+  padding: 0 30px;
 }
 :root {
   --accent-color: #f7654a;
@@ -91,21 +93,72 @@ body {
   background-size: cover;
 }
 .header__nav {
-  padding-top: 20px;
+  padding-top: 30px;
   margin-bottom: 112px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
-.logo {
-}
 .burger {
-  width: 50px;
-  height: 50px;
+  background: transparent;
+  width: 40px;
+  height: 26px;
   cursor: pointer;
-  padding: 0;
-  background-color: var(--accent-color);
   border: none;
+  display: block;
+  z-index: 2;
+  position: relative;
+}
+.burger::before,
+.burger::after {
+  content: "";
+  left: 8px;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 10px;
+  background: var(--accent-color);
+}
+.burger::before {
+  top: 0;
+  box-shadow: 0 11px 0 var(--accent-color);
+  transition: box-shadow 0.3s 0.15s, top 0.3s 0.15s, transform 0.3s;
+}
+.burger::after {
+  bottom: 0;
+  transition: bottom 0.3s 0.15s, transform 0.3s;
+}
+.burger.actively::before {
+  top: 11px;
+  transform: rotate(45deg);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0);
+  transition: box-shadow 0.15s, top 0.3s, transform 0.3s 0.15s;
+}
+.burger.actively::after {
+  bottom: 11px;
+  transform: rotate(-45deg);
+  transition: bottom 0.3s, transform 0.3s 0.15s;
+}
+.navbar {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+.navbar a {
+  padding: 10px 15px;
+  font-size: 18px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: block;
+}
+.navbar a:hover {
+  background: var(--accent-color);
+  border-radius: 5px;
 }
 .header__main-title {
   font-weight: 500;
@@ -243,7 +296,8 @@ body {
   align-items: center;
   gap: 15px;
 }
-.request__p {
+.request__p,
+.close-texst {
   font-family: "Oswald", sans-serif;
   font-weight: 500;
   font-size: 14px;
@@ -251,8 +305,20 @@ body {
   text-transform: uppercase;
   color: #000;
 }
+.modal {
+  border: 1px solid var(--dark-color);
+  padding: 50px;
+}
+.dialog-p {
+  color: black;
+  margin-bottom: 40px;
+}
+.close-btn {
+  padding: 14px 30px;
+}
 .services {
   margin-bottom: 153px;
+  flex-direction: ;
 }
 .services__h2 {
   text-align: center;
@@ -285,11 +351,14 @@ body {
 }
 .portfolio__item {
   height: 407px;
+  margin-bottom: 35px;
 }
 .portfolio__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  margin-bottom: 50px;
+  text-align: center;
 }
 .question {
   margin-bottom: 142px;
@@ -298,28 +367,17 @@ body {
   margin-bottom: 50px;
   text-align: center;
 }
+.question__item {
+  margin-bottom: 35px;
+}
 .question__h3 {
   color: var(--accent-color);
   text-transform: uppercase;
 }
-.close {
-  margin-bottom: 35px;
-}
 .question__p {
-  margin: 20px 0 35px;
+  margin-top: 20px;
   color: var(--gray-color);
   max-width: 730px;
-}
-.question__item-flex {
-  display: flex;
-  gap: 18px;
-  padding-left: 2px;
-}
-.open > .question__img {
-  transform: rotate(-90deg);
-}
-.close + .question__p {
-  display: none;
 }
 .partners {
   background-color: var(--dark-color);
@@ -334,7 +392,7 @@ body {
   padding-bottom: 100px;
   display: flex;
   gap: 64px;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 .reviews {
@@ -403,9 +461,17 @@ body {
 .contacts__h3 {
   text-transform: uppercase;
 }
+.contacts__h3 a {
+  text-decoration: none;
+  color: inherit;
+}
 .contacts__h3-accent {
   color: var(--accent-color);
   text-transform: uppercase;
+}
+.contacts__h3-accent a {
+  text-decoration: none;
+  color: inherit;
 }
 .footer {
   padding: 28px 0;
@@ -420,10 +486,35 @@ body {
 .footer__p {
   color: white;
 }
-
-@media screen and (max-width: 1160px) {
-  .container {
-    padding: 0 30px;
+@media screen and (min-width: 1001px) {
+  .burger {
+    display: none;
+  }
+}
+@media screen and (max-width: 1246px) {
+  .modal {
+    margin: 0 15px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .navbar {
+    top: 0;
+    right: 0;
+    position: absolute;
+    display: grid;
+    gap: 12px;
+    padding: 130px 30px 70px;
+    background: #f7f7f7;
+    text-align: center;
+    z-index: 1;
+    transform: translateX(100%);
+    transition: 0.3s;
+  }
+  .navbar a {
+    color: var(--dark-color);
+  }
+  .active {
+    transform: translateX(0%);
   }
 }
 @media screen and (max-width: 879px) {
